@@ -4,30 +4,34 @@ set sln = Solution
 set namespace=Kaddis.Bookshop
 
 rem mkdir Solution
-dotnet new sln
+dotnet new sln --name Solution
 
 rem add API
 set projectName=Common
 dotnet new webapp --output APIs/%projectName%/%namespace%.APIs.%projectName% --name %namespace%.APIs.%projectName%
-dotnet sln TestCLI.sln add  APIs/%projectName%/%namespace%.APIs.%projectName%/%namespace%.APIs.%projectName%.csproj
+dotnet sln Solution.sln add  APIs/%projectName%/%namespace%.APIs.%projectName%/%namespace%.APIs.%projectName%.csproj
 
 rem add Facades
 set projectName=Common
-dotnet new webapp --output Facades/%projectName%/%namespace%.Facades.%projectName% --name %namespace%.Facades.%projectName%
-dotnet sln TestCLI.sln add  Facades/%projectName%/%namespace%.Facades.%projectName%/%namespace%.Facades.%projectName%.csproj
+set folderName=Common
+dotnet new classlib --output Facades/%folderName%/%namespace%.Facades.%projectName% --name %namespace%.Facades.%projectName%
+dotnet sln Solution.sln add  Facades/%folderName%/%namespace%.Facades.%projectName%/%namespace%.Facades.%projectName%.csproj
 
 set projectName=ICommon
-dotnet new webapp --output Facades/%projectName%/%namespace%.Facades.%projectName% --name %namespace%.Facades.%projectName%
-dotnet sln TestCLI.sln add  Facades/%projectName%/%namespace%.Facades.%projectName%/%namespace%.Facades.%projectName%.csproj
+set folderName=Common
+dotnet new classlib --output Facades/%folderName%/%namespace%.Facades.%projectName% --name %namespace%.Facades.%projectName%
+dotnet sln Solution.sln add  Facades/%folderName%/%namespace%.Facades.%projectName%/%namespace%.Facades.%projectName%.csproj
 
 rem add Core
 set projectName=Common.Application
-dotnet new webapp --output Core/%projectName%/%namespace%.Core.%projectName% --name %namespace%.Core.%projectName%
-dotnet sln TestCLI.sln add  Core/%projectName%/%namespace%.Core.%projectName%/%namespace%.Core.%projectName%.csproj
-dotnet new cs 
+set folderName=Common/Application
+dotnet new classlib --output Core/%folderName%/%namespace%.Core.%projectName% --name %namespace%.Core.%projectName%
+dotnet sln Solution.sln add  Core/%folderName%/%namespace%.Core.%projectName%/%namespace%.Core.%projectName%.csproj
+
 set projectName=Common.Domain
-dotnet new webapp --output Core/%projectName%/%namespace%.Core.%projectName% --name %namespace%.Core.%projectName%
-dotnet sln TestCLI.sln add  Core/%projectName%/%namespace%.Core.%projectName%/%namespace%.Core.%projectName%.csproj
+set folderName=Common/Domain
+dotnet new classlib --output Core/%folderName%/%namespace%.Core.%projectName% --name %namespace%.Core.%projectName%
+dotnet sln Solution.sln add  Core/%folderName%/%namespace%.Core.%projectName%/%namespace%.Core.%projectName%.csproj
 
 
 pause
